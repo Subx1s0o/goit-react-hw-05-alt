@@ -5,3 +5,23 @@
   display: flex;
   justify-content: center;
 }
+
+.btns {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  margin-bottom: 30px;
+}
+
+.button {
+  cursor: pointer;
+  border: 2px solid rgb(174, 174, 174);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #818181;
+}
+
+.active {
+  background-color: rgb(255, 60, 0);
+  color: #fff;
+}

@@ -1,0 +1,17 @@
+.card_title {
+  color: white;
+  font-size: 13px;
+}
+
+.card_li {
+  width: calc((100% - 80px) / 5);
+}
+
+.card_info {
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 5px;
+}
