@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 export default function MovieCard({ poster_path, title, id }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const imageUrl = poster_path
-    ? `https://image.tmdb.org/t/p/w500${poster_path}`
-    : "placeholder-image-url";
-
   return (
     <li
       style={{
@@ -16,9 +12,9 @@ export default function MovieCard({ poster_path, title, id }) {
       }}
       className={card_li}
     >
-      <Link to={`movie/${id}`}>
+      <Link to={`movies/${id}`}>
         <img
-          src={imageUrl}
+          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
           alt={title}
           onLoad={() => setImageLoaded(true)}
           style={{ display: "block", width: "100%", height: "auto" }}

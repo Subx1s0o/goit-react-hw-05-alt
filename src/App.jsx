@@ -9,7 +9,9 @@ import "./css/App.css";
 
 const Home = lazy(() => import("./Pages/HomePage/HomePage"));
 const Movies = lazy(() => import("./Pages/MoviesPage"));
-const MovieDetails = lazy(() => import("./Pages/MovieDetailsPage"));
+const MovieDetails = lazy(() =>
+  import("./Pages/MovieDetailsPage/MovieDetailsPage")
+);
 const NotFound = lazy(() => import("./Pages/NotFoundPage"));
 
 function App() {
@@ -32,9 +34,20 @@ function App() {
           chosenData.page
         );
         const response = await axios(requestOptions);
-        const data = response.data.results;
-        setRequestData(data);
-        console.log(data);
+
+        let data;
+
+        if (
+          chosenData.key === "trendingWeek" ||
+          chosenData.key === "trendingDay"
+        ) {
+          data = response.data.results;
+          localStorage.setItem("trending", JSON.stringify(data));
+          setRequestData(JSON.parse(localStorage.getItem("trending")));
+        } else {
+          data = response.data;
+          setRequestData(data);
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -65,8 +78,13 @@ function App() {
             />
             <Route path="/movies" element={<Movies />} />
             <Route
-              path="/movie/:movieId"
-              element={<MovieDetails setRequestData={setChosenData} />}
+              path="/movies/:movieId"
+              element={
+                <MovieDetails
+                  setRequestData={setChosenData}
+                  requestData={requestData}
+                />
+              }
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -4,7 +4,7 @@
 }
 
 .card_li {
-  width: calc((100% - 80px) / 5);
+  width: calc((100% - 100px) / 5);
 }
 
 .card_info {
@@ -14,4 +14,28 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   padding: 5px;
+}
+
+@media (max-width: 1200px) {
+  .card_li {
+    width: calc((100% - 80px) / 4);
+  }
+}
+
+@media (max-width: 991px) {
+  .card_li {
+    width: calc((100% - 60px) / 3);
+  }
+}
+
+@media (max-width: 768px) {
+  .card_li {
+    width: calc((100% - 40px) / 2);
+  }
+}
+
+@media (max-width: 500px) {
+  .card_li {
+    width: 100%;
+  }
 }
