@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "../../Components/Loader/Loader";
 import styles from "./movieDetailsPage.module.css";
@@ -19,7 +19,7 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
     <>
       {requestData ? (
         <>
-          <Link to="/">Go back</Link>
+          <a href="/">Go back</a>
           <div
             className={styles.image}
             style={{
