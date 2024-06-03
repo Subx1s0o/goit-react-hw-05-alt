@@ -19,7 +19,17 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
     <>
       {requestData ? (
         <>
-          <a href="/">Go back</a>
+          <a
+            style={{
+              color: "white",
+              fontSize: "20px",
+              marginTop: "20px",
+              display: "block",
+            }}
+            href="/"
+          >
+            Go back
+          </a>
           <div
             className={styles.image}
             style={{
@@ -38,7 +48,11 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
               )}
               <h1>{original_title}</h1>
               <p>Release Date: {release_date}</p>
-              <p>Overview: {overview}</p>
+              {overview ? (
+                <p>Overview: {overview} </p>
+              ) : (
+                <p>Don`t have overview</p>
+              )}
             </div>
           </div>
         </>
