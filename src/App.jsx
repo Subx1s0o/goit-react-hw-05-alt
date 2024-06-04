@@ -42,12 +42,14 @@ function App() {
           chosenData.key === "trendingDay"
         ) {
           data = response.data.results;
-          localStorage.setItem("trending", JSON.stringify(data));
-          setRequestData(JSON.parse(localStorage.getItem("trending")));
+
+          setRequestData(data);
         } else {
           data = response.data;
           setRequestData(data);
         }
+
+        console.log(data);
       } catch (error) {
         console.error(error);
       } finally {

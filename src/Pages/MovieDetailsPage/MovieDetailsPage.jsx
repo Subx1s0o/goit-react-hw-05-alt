@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "../../Components/Loader/Loader";
 import styles from "./movieDetailsPage.module.css";
@@ -19,23 +19,25 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
     <>
       {requestData ? (
         <>
-          <a
+          <Link
             style={{
               color: "white",
               fontSize: "20px",
               marginTop: "20px",
               display: "block",
             }}
-            href="/"
+            to="/"
           >
             Go back
-          </a>
+          </Link>
           <div
             className={styles.image}
             style={{
-              backgroundImage: backdrop_path
-                ? `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdrop_path})`
-                : "none",
+              backgroundImage: backdrop_path ? (
+                `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdrop_path})`
+              ) : (
+                <Loader />
+              ),
             }}
           >
             <div className={styles.contentDetails}>
@@ -55,6 +57,13 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
               )}
             </div>
           </div>
+          <button
+            onClick={() =>
+              setRequestData({ key: "movieCast", id: movieId, page: 1 })
+            }
+          >
+            cast
+          </button>
         </>
       ) : (
         <Loader />
