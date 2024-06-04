@@ -1,10 +1,13 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "../../Components/Loader/Loader";
 import styles from "./movieDetailsPage.module.css";
+import useImageLoaded from "../../Hooks/useImageLoaded";
 
 export default function MovieDetailsPage({ setRequestData, requestData }) {
   const { movieId } = useParams();
+  const location = useLocation();
+  const { imageLoaded, handleImageLoad } = useImageLoaded();
 
   useEffect(() => {
     if (movieId) {
@@ -12,8 +15,17 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
     }
   }, [movieId, setRequestData]);
 
-  const { original_title, release_date, overview, backdrop_path, poster_path } =
-    requestData || {};
+  const {
+    title,
+    release_date,
+    overview,
+    backdrop_path,
+    poster_path,
+    status,
+    genres,
+    production_countries,
+    vote_average,
+  } = requestData || {};
 
   return (
     <>
@@ -26,18 +38,21 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
               marginTop: "20px",
               display: "block",
             }}
-            to="/"
+            to={location.state}
           >
             Go back
           </Link>
           <div
             className={styles.image}
             style={{
-              backgroundImage: backdrop_path ? (
-                `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdrop_path})`
-              ) : (
-                <Loader />
-              ),
+              backgroundImage:
+                backdrop_path && imageLoaded ? (
+                  `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdrop_path})`
+                ) : (
+                  <Loader />
+                ),
+              opacity: imageLoaded ? 1 : 0,
+              transition: "opacity 0.2s ease-in-out",
             }}
           >
             <div className={styles.contentDetails}>
@@ -45,25 +60,41 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
                 <img
                   className={styles.poster}
                   src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                  alt={original_title}
+                  alt={title}
+                  onLoad={handleImageLoad}
                 />
               )}
-              <h1>{original_title}</h1>
+              <h1>{title}</h1>
               <p>Release Date: {release_date}</p>
               {overview ? (
                 <p>Overview: {overview} </p>
               ) : (
                 <p>Don`t have overview</p>
               )}
+
+              <p>{status}</p>
+
+              {genres ? (
+                genres.map(({ id, name }) => <p key={id}>{name}</p>)
+              ) : (
+                <p>genres not exists</p>
+              )}
+
+              {production_countries &&
+                production_countries.map(({ name }, index) => (
+                  <p key={index}>{name}</p>
+                ))}
+
+              {vote_average && <p>{vote_average}</p>}
             </div>
           </div>
-          <button
+          {/* <button
             onClick={() =>
               setRequestData({ key: "movieCast", id: movieId, page: 1 })
             }
           >
             cast
-          </button>
+          </button> */}
         </>
       ) : (
         <Loader />

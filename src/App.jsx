@@ -15,14 +15,16 @@ const MovieDetails = lazy(() =>
 const NotFound = lazy(() => import("./Pages/NotFoundPage"));
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(1);
   const [chosenData, setChosenData] = useState({
     key: "trendingWeek",
     id: null,
-    page: 1,
+    page: currentPage,
   });
   const [requestData, setRequestData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isActive, setIsActive] = useState("trendingWeek");
+  const [maxPage, setMaxPage] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +35,8 @@ function App() {
           chosenData.id,
           chosenData.page
         );
+
+        console.log(requestOptions);
         const response = await axios(requestOptions);
 
         let data;
@@ -43,13 +47,13 @@ function App() {
         ) {
           data = response.data.results;
 
+          const maxResponsePage = response.data.total_pages;
+          setMaxPage(maxResponsePage);
           setRequestData(data);
         } else {
           data = response.data;
           setRequestData(data);
         }
-
-        console.log(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -70,6 +74,9 @@ function App() {
               path="/"
               element={
                 <Home
+                  maxPage={maxPage}
+                  page={currentPage}
+                  setPage={setCurrentPage}
                   loading={loading}
                   requestData={requestData}
                   setRequestData={setChosenData}

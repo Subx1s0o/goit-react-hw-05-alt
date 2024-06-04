@@ -1,8 +1,16 @@
-import { useState } from "react";
 import { card_title, card_li, card_info } from "./movieCard.module.css";
-import { Link } from "react-router-dom";
-export default function MovieCard({ poster_path, title, id }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
+import { Link, useLocation } from "react-router-dom";
+import useImageLoaded from "../../Hooks/useImageLoaded";
+
+export default function MovieCard({
+  poster_path,
+  title,
+  id,
+  release_date,
+  vote_average,
+}) {
+  const { imageLoaded, handleImageLoad } = useImageLoaded();
+  const location = useLocation();
 
   return (
     <li
@@ -12,15 +20,17 @@ export default function MovieCard({ poster_path, title, id }) {
       }}
       className={card_li}
     >
-      <Link to={`movies/${id}`}>
+      <Link to={`movies/${id}`} state={location}>
         <img
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}
           alt={title}
-          onLoad={() => setImageLoaded(true)}
+          onLoad={handleImageLoad}
           style={{ display: "block", width: "100%", height: "auto" }}
         />
         <div className={card_info}>
           <p className={card_title}>{title}</p>
+          {release_date ? <p> {release_date.slice(0, 4)}</p> : null}
+          {vote_average ? <p>{vote_average}</p> : null}
         </div>
       </Link>
     </li>

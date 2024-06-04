@@ -9,14 +9,17 @@ export default function HomePage({
   setRequestData,
   isActive,
   setIsActive,
+  page,
+  setPage,
+  maxPage,
 }) {
   useEffect(() => {
     setRequestData({
       key: "trendingWeek",
       id: null,
-      page: 1,
+      page: page,
     });
-  }, [setRequestData]);
+  }, [setRequestData, page]);
 
   return (
     <div className="content">
@@ -30,7 +33,7 @@ export default function HomePage({
             setRequestData({
               key: "trendingWeek",
               id: null,
-              page: 1,
+              page: page,
             });
           }}
         >
@@ -43,19 +46,22 @@ export default function HomePage({
             setRequestData({
               key: "trendingDay",
               id: null,
-              page: 1,
+              page: page,
             });
           }}
         >
           TrendingDay
         </button>
-      </div>
 
-      {loading ? (
-        <Loader />
-      ) : Array.isArray(requestData) ? (
+        <button onClick={() => page > 1 && setPage(page - 1)}> prev </button>
+        <button onClick={() => page <= maxPage && setPage(page + 1)}>
+          next
+        </button>
+      </div>
+      {loading && <Loader />}
+      {!loading && Array.isArray(requestData) && (
         <CardList data={requestData} />
-      ) : null}
+      )}
     </div>
   );
 }
