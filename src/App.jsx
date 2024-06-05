@@ -25,7 +25,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isActive, setIsActive] = useState("trendingWeek");
   const [maxPage, setMaxPage] = useState(null);
-
+  const [weekPage, setWeekPage] = useState(1);
+  const [dayPage, setDayPage] = useState(1);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +37,6 @@ function App() {
           chosenData.page
         );
 
-        console.log(requestOptions);
         const response = await axios(requestOptions);
 
         let data;
@@ -74,6 +74,10 @@ function App() {
               path="/"
               element={
                 <Home
+                  weekPage={weekPage}
+                  setWeekPage={setWeekPage}
+                  dayPage={dayPage}
+                  setDayPage={setDayPage}
                   maxPage={maxPage}
                   page={currentPage}
                   setPage={setCurrentPage}

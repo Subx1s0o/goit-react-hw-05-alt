@@ -26,6 +26,10 @@ const getApiRequest = (key, value = null, page = 1) => {
     url = requestsURL.movieDetail(value);
   } else if (key === "search" && value) {
     url = requestsURL.search(value);
+  } else if (key === "movieCast" && value) {
+    url = requestsURL.movieCast(value);
+  } else if (key === "movieReviews" && value) {
+    url = requestsURL.movieReviews(value);
   } else if (requestsURL[key]) {
     url = requestsURL[key];
   } else {

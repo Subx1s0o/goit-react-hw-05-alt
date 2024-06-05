@@ -1,6 +1,7 @@
 .card_title {
-  color: white;
-  font-size: 13px;
+  color: #ff3300;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .card_li {
@@ -8,9 +9,10 @@
 }
 
 .card_info {
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
-  border-left: 2px solid #ffffff;
+  border-right: 2px solid #ff3300;
+  border-bottom: 2px solid #ff3300;
+  border-left: 2px solid #ff3300;
+  background-color: #fff;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   padding: 5px;

@@ -1,6 +1,7 @@
 import { card_title, card_li, card_info } from "./movieCard.module.css";
 import { Link, useLocation } from "react-router-dom";
 import useImageLoaded from "../../Hooks/useImageLoaded";
+import formatVoteAverage from "../../utils";
 
 export default function MovieCard({
   poster_path,
@@ -30,7 +31,7 @@ export default function MovieCard({
         <div className={card_info}>
           <p className={card_title}>{title}</p>
           {release_date ? <p> {release_date.slice(0, 4)}</p> : null}
-          {vote_average ? <p>{vote_average}</p> : null}
+          {vote_average ? <p>{formatVoteAverage(vote_average)}</p> : null}
         </div>
       </Link>
     </li>

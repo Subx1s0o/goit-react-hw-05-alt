@@ -9,17 +9,36 @@ export default function HomePage({
   setRequestData,
   isActive,
   setIsActive,
-  page,
-  setPage,
+  dayPage,
+  setDayPage,
+  weekPage,
+  setWeekPage,
   maxPage,
 }) {
   useEffect(() => {
+    const currentPage = isActive === "trendingWeek" ? weekPage : dayPage;
     setRequestData({
-      key: "trendingWeek",
+      key: isActive,
       id: null,
-      page: page,
+      page: currentPage,
     });
-  }, [setRequestData, page]);
+  }, [isActive, weekPage, dayPage, setRequestData]);
+
+  const handlePrevPage = () => {
+    if (isActive === "trendingWeek" && weekPage > 1) {
+      setWeekPage(weekPage - 1);
+    } else if (isActive === "trendingDay" && dayPage > 1) {
+      setDayPage(dayPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (isActive === "trendingWeek" && weekPage < maxPage) {
+      setWeekPage(weekPage + 1);
+    } else if (isActive === "trendingDay" && dayPage < maxPage) {
+      setDayPage(dayPage + 1);
+    }
+  };
 
   return (
     <div className="content">
@@ -30,11 +49,6 @@ export default function HomePage({
           className={`${button} ${isActive === "trendingWeek" ? active : ""}`}
           onClick={() => {
             setIsActive("trendingWeek");
-            setRequestData({
-              key: "trendingWeek",
-              id: null,
-              page: page,
-            });
           }}
         >
           TrendingWeek
@@ -43,20 +57,13 @@ export default function HomePage({
           className={`${button} ${isActive === "trendingDay" ? active : ""}`}
           onClick={() => {
             setIsActive("trendingDay");
-            setRequestData({
-              key: "trendingDay",
-              id: null,
-              page: page,
-            });
           }}
         >
           TrendingDay
         </button>
 
-        <button onClick={() => page > 1 && setPage(page - 1)}> prev </button>
-        <button onClick={() => page <= maxPage && setPage(page + 1)}>
-          next
-        </button>
+        <button onClick={handlePrevPage}> prev </button>
+        <button onClick={handleNextPage}> next </button>
       </div>
       {loading && <Loader />}
       {!loading && Array.isArray(requestData) && (
