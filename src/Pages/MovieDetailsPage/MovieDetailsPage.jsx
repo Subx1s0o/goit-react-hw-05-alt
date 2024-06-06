@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "../../Components/Loader/Loader";
 import styles from "./movieDetailsPage.module.css";
@@ -14,6 +14,8 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
   const { imageLoaded, handleImageLoad } = useImageLoaded();
   const [chosenData, setChosenData] = useState(null);
   const [dataType, setDataType] = useState("");
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
 
   useEffect(() => {
     if (movieId) {
@@ -55,21 +57,23 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
     }
   };
 
-  const backLinkHref = location.state ?? "/";
+  const handleBackClick = () => {
+    navigate(from);
+  };
 
   return (
     <>
-      <Link
+      <button
         style={{
           color: "white",
           fontSize: "20px",
           marginTop: "20px",
           display: "block",
         }}
-        to={backLinkHref}
+        onClick={handleBackClick}
       >
         Go back
-      </Link>
+      </button>
       {requestData ? (
         <>
           <div
@@ -79,7 +83,7 @@ export default function MovieDetailsPage({ setRequestData, requestData }) {
                 backdrop_path &&
                 `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdrop_path})`,
               opacity: imageLoaded ? 1 : 0,
-              transition: "opacity 0.2s ease-in-out",
+              transition: "opacity 0.3s ease-in-out",
             }}
           >
             <div className={styles.contentDetails}>

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
 import axios from "axios";
 import Header from "./Components/Header/Header";
 import Loader from "./Components/Loader/Loader";
@@ -8,7 +7,7 @@ import getApiRequest from "./tmdb-api";
 import "./css/App.css";
 
 const Home = lazy(() => import("./Pages/HomePage/HomePage"));
-const Movies = lazy(() => import("./Pages/MoviesPage"));
+const Movies = lazy(() => import("./Pages/MoviesPage/MoviesPage"));
 const MovieDetails = lazy(() =>
   import("./Pages/MovieDetailsPage/MovieDetailsPage")
 );
@@ -23,10 +22,13 @@ function App() {
   });
   const [requestData, setRequestData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [isActive, setIsActive] = useState("trendingWeek");
   const [maxPage, setMaxPage] = useState(null);
-  const [weekPage, setWeekPage] = useState(1);
+  const [searchPage, setSearchPage] = useState(1);
+  const [searchData, setSearchData] = useState(null);
+const [isActive, setIsActive] = useState("trendingWeek");
+    const [weekPage, setWeekPage] = useState(1);
   const [dayPage, setDayPage] = useState(1);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +38,6 @@ function App() {
           chosenData.id,
           chosenData.page
         );
-
         const response = await axios(requestOptions);
 
         let data;
@@ -46,7 +47,6 @@ function App() {
           chosenData.key === "trendingDay"
         ) {
           data = response.data.results;
-
           const maxResponsePage = response.data.total_pages;
           setMaxPage(maxResponsePage);
           setRequestData(data);
@@ -63,6 +63,21 @@ function App() {
 
     fetchData();
   }, [chosenData]);
+
+  const searchFilmData = async (query) => {
+    try {
+      setLoading(true);
+      const requestOptions = getApiRequest("search", query, searchPage);
+      const response = await axios(requestOptions);
+      setSearchData(response.data.results);
+      const maxResponsePage = response.data.total_pages;
+      setMaxPage(maxResponsePage);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -89,7 +104,18 @@ function App() {
                 />
               }
             />
-            <Route path="/movies" element={<Movies />} />
+            <Route
+              path="/movies"
+              element={
+                <Movies
+                  requestData={searchData}
+                  searchFilmData={searchFilmData}
+                  maxPage={maxPage}
+                  searchPage={searchPage}
+                  setSearchPage={setSearchPage}
+                />
+              }
+            />
             <Route
               path="/movies/:movieId"
               element={

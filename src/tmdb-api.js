@@ -10,6 +10,7 @@ const requestsURL = {
 };
 
 const createRequestOptions = (url, page = 1) => ({
+  method: "GET",
   url: url,
   params: { language: "en-US", page: page },
   headers: {
