@@ -9,16 +9,19 @@ const requestsURL = {
     `https://api.themoviedb.org/3/movie/${movie_id}/reviews`,
 };
 
-const createRequestOptions = (url, page = 1) => ({
-  method: "GET",
-  url: url,
-  params: { language: "en-US", page: page },
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMGIyNjE5NDA3NDY5OTMwNWIwYTcyMWVjNDgzZjk5OSIsInN1YiI6IjY2NDc5MGU3YjA5OGQ5MTYxNmI1MzkwZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QRNQAwg2heopawZTBLStQ1mzjPrJ0LTGCfHKGd3Q7pU",
-  },
-});
+const createRequestOptions = (url, page = 1) => {
+  const urlValue = typeof url === "function" ? url() : url;
+  return {
+    method: "GET",
+    url: urlValue,
+    params: { language: "en-US", page: page },
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMGIyNjE5NDA3NDY5OTMwNWIwYTcyMWVjNDgzZjk5OSIsInN1YiI6IjY2NDc5MGU3YjA5OGQ5MTYxNmI1MzkwZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QRNQAwg2heopawZTBLStQ1mzjPrJ0LTGCfHKGd3Q7pU",
+    },
+  };
+};
 
 const getApiRequest = (key, value = null, page = 1) => {
   let url;

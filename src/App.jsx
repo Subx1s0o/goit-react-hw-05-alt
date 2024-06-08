@@ -25,8 +25,8 @@ function App() {
   const [maxPage, setMaxPage] = useState(null);
   const [searchPage, setSearchPage] = useState(1);
   const [searchData, setSearchData] = useState(null);
-const [isActive, setIsActive] = useState("trendingWeek");
-    const [weekPage, setWeekPage] = useState(1);
+  const [isActive, setIsActive] = useState("trendingWeek");
+  const [weekPage, setWeekPage] = useState(1);
   const [dayPage, setDayPage] = useState(1);
 
   useEffect(() => {
@@ -113,6 +113,7 @@ const [isActive, setIsActive] = useState("trendingWeek");
                   maxPage={maxPage}
                   searchPage={searchPage}
                   setSearchPage={setSearchPage}
+                  setLoading={setLoading}
                 />
               }
             />
