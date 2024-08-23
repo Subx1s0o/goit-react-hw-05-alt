@@ -1,10 +1,10 @@
-import { useEffect, useState, lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
 import axios from "axios";
-import Header from "./components/Header/Header";
-import Loader from "./components/Loader/Loader";
-import getApiRequest from "./tmdb-api";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Header from "./cc/Header/Header";
+import Loader from "./cc/Loader/Loader";
 import "./css/App.css";
+import getApiRequest from "./tmdb-api";
 
 const Home = lazy(() => import("./Pages/HomePage/HomePage"));
 const Movies = lazy(() => import("./Pages/MoviesPage/MoviesPage"));

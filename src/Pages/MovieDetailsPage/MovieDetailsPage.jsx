@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Loader from "../../components/Loader/Loader";
-import MoreDetailsList from "../../components/MoreDetailsList/MoreDetailsList";
+import Loader from "../../cc/Loader/Loader";
+import MoreDetailsList from "../../cc/MoreDetailsList/MoreDetailsList";
 import useImageLoaded from "../../Hooks/useImageLoaded";
 import getApiRequest from "../../tmdb-api";
 import formatVoteAverage from "../../utils";
