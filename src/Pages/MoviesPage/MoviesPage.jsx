@@ -1,7 +1,7 @@
-import CardList from "../../cc/CardList/CardList";
+import CardList from "../../components/CardList/CardList";
 import { form, input, main_h } from "./moviesPage.module.css";
 // import { useState } from "react";
-import Loader from "../../cc/Loader/Loader";
+import Loader from "../../components/Loader/Loader";
 // import { Toaster, toast } from "react-hot-toast";
 
 export default function MoviesPage({

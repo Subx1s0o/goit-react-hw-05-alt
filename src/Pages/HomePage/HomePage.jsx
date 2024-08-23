@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import CardList from "../../cc/CardList/CardList";
-import Loader from "../../cc/Loader/Loader";
+import CardList from "../../components/CardList/CardList";
+import Loader from "../../components/Loader/Loader";
 import { active, btns, button, mainH } from "./homePage.module.css";
 
 export default function HomePage({

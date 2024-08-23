@@ -1,8 +1,8 @@
 import axios from "axios";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Header from "./cc/Header/Header";
-import Loader from "./cc/Loader/Loader";
+import Header from "./components/Header/Header";
+import Loader from "./components/Loader/Loader";
 import "./css/App.css";
 import getApiRequest from "./tmdb-api";
 
