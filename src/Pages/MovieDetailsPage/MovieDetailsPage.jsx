@@ -1,12 +1,12 @@
-import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Loader from "../../Components/Loader/Loader";
-import styles from "./movieDetailsPage.module.css";
-import useImageLoaded from "../../Hooks/useImageLoaded";
-import formatVoteAverage from "../../utils";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
+import MoreDetailsList from "../../components/MoreDetailsList/MoreDetailsList";
+import useImageLoaded from "../../Hooks/useImageLoaded";
 import getApiRequest from "../../tmdb-api";
-import MoreDetailsList from "../../Components/MoreDetailsList/MoreDetailsList";
+import formatVoteAverage from "../../utils";
+import styles from "./movieDetailsPage.module.css";
 
 export default function MovieDetailsPage({ setRequestData, requestData }) {
   const { movieId } = useParams();
