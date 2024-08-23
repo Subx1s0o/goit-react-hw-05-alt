@@ -6,12 +6,12 @@ import Loader from "./components/Loader/Loader";
 import "./css/App.css";
 import getApiRequest from "./tmdb-api";
 
-const Home = lazy(() => import("./Pages/HomePage/HomePage"));
-const Movies = lazy(() => import("./Pages/MoviesPage/MoviesPage"));
+const Home = lazy(() => import("./pages/HomePage/HomePage"));
+const Movies = lazy(() => import("./pages/MoviesPage/MoviesPage"));
 const MovieDetails = lazy(() =>
-  import("./Pages/MovieDetailsPage/MovieDetailsPage")
+  import("./pages/MovieDetailsPage/MovieDetailsPage")
 );
-const NotFound = lazy(() => import("./Pages/NotFoundPage"));
+const NotFound = lazy(() => import("./pages/NotFoundPage"));
 
 function App() {
   const [currentPage, setCurrentPage] = useState(1);
